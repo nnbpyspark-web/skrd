@@ -1,36 +1,58 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Sri Kanugonda Raya Swami Temple Website
 
-## Getting Started
+Official website for the Sri Kanugonda Raya Swami Temple, built with Next.js, TailwindCSS, and deployed as a static progressive web app (PWA).
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Bilingual:** English and Telugu language support without routing changes.
+- **Fast & SEO Friendly:** Fully static architecture optimized for Core Web Vitals.
+- **PWA Ready:** Installable on mobile devices with offline support.
+- **Modern UI:** Tailwind CSS, Framer Motion animations.
+- **Live Darshan:** YouTube live stream integration.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## How to Run Locally
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. **Prerequisites:** Make sure you have Node.js (v18+) installed.
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+3. **Run the development server:**
+   ```bash
+   npm run dev
+   ```
+4. **Open browser:** Navigate to [http://localhost:3000](http://localhost:3000)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## How to Update Content (For Temple Management)
 
-## Learn More
+All content is driven by local configuration files. You don't need to know React to change text or prices. Simply edit the files in the `data/` directory:
 
-To learn more about Next.js, take a look at the following resources:
+- **`data/live.ts`**: Update the YouTube live URL or turn live streaming on/off.
+- **`data/donations.ts`**: Update bank details or UPI ID.
+- **`data/sevas.ts`**: Add or modify poojas, prices, and timings.
+- **`data/festivals.ts`**: Update upcoming festival dates and information.
+- **`data/gallery.ts`**: Add new images to the gallery by putting images in `public/images/gallery/` and referencing them here.
+- **`data/templeInfo.ts`**: Update phone numbers, WhatsApp, or typical Darshan timings.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+*Tip: Before committing changes, test them locally to ensure everything works.*
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Deployment
 
-## Deploy on Vercel
+This app is configured to be exported as a static HTML application (`output: 'export'` in Next config).
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Vercel (Recommended)
+1. Push this repository to GitHub.
+2. Go to [Vercel](https://vercel.com/), create a new project, and select the repository.
+3. Add the following Environment Variable:
+   - `NEXT_PUBLIC_GA_MEASUREMENT_ID` = `G-XXXXXXXXXX` (Your Google Analytics ID)
+4. Click Deploy. Vercel automatically detects Next.js and builds the static site.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### AWS S3 + CloudFront
+1. Build the static site: `npm run build`
+2. The output will be in the `/out` directory.
+3. Sync the `/out` directory to an S3 bucket configured for website hosting.
+4. Set up CloudFront to point to your S3 bucket and issue an SSL certificate via AWS Certificate Manager.
+
+### Custom Domain
+Configure your DNS records (A record or CNAME) to point to your hosting provider's IP/URL (e.g., Vercel's nameservers). Wait for propagation, and the site will be live on your custom domain.
+

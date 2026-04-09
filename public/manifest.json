@@ -1,0 +1,49 @@
+{
+  "name": "Sri Kanugonda Raya Swami Temple",
+  "short_name": "KRS Temple",
+  "description": "Official app for Sri Kanugonda Raya Swami Temple - Darshan timings, festivals, sevas and more.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fff8f0",
+  "theme_color": "#ff8811",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "en-IN",
+  "categories": ["lifestyle", "religion"],
+  "icons": [
+    {
+      "src": "/icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Darshan Timings",
+      "short_name": "Timings",
+      "description": "View today's darshan timings",
+      "url": "/timings/",
+      "icons": [{ "src": "/icons/icon.svg", "sizes": "any" }]
+    },
+    {
+      "name": "Contact Temple",
+      "short_name": "Contact",
+      "description": "Get directions and contact info",
+      "url": "/contact/",
+      "icons": [{ "src": "/icons/icon.svg", "sizes": "any" }]
+    }
+  ]
+}
