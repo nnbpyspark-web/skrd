@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useCallback } from "react";
+import Image from "next/image";
 import { useLanguage, useBilingualText } from "@/lib/LanguageContext";
 import { PremiumSectionHeading } from "@/components/ui/Primitives";
 import { galleryItems, GalleryItem } from "@/data/gallery";
@@ -111,18 +112,28 @@ export default function GalleryPageClient() {
                   onClick={() => openLightbox(item, index)}
                 >
                   <div
-                    className="w-full bg-gradient-to-br from-saffron-100 to-ivory-200 flex items-center justify-center
+                    className="w-full relative bg-gradient-to-br from-saffron-100 to-ivory-200 flex items-center justify-center
                       transition-transform duration-700 group-hover:scale-105"
                     style={{
                       aspectRatio: item.caption.en.length % 2 === 0 ? "3/4" : "4/3",
                     }}
                   >
-                    <div className="text-center p-4">
-                      <span className="text-4xl block mb-2 opacity-50">📸</span>
-                      <p className="text-saffron-600/60 text-xs font-heading">
-                        {getText(item.caption)}
-                      </p>
-                    </div>
+                    {item.thumbnail ? (
+                      <Image
+                        src={item.thumbnail}
+                        alt={getText(item.caption)}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      />
+                    ) : (
+                      <div className="text-center p-4">
+                        <span className="text-4xl block mb-2 opacity-50">📸</span>
+                        <p className="text-saffron-600/60 text-xs font-heading">
+                          {getText(item.caption)}
+                        </p>
+                      </div>
+                    )}
                   </div>
 
                   {/* Hover overlay with frosted glass */}
@@ -236,11 +247,22 @@ export default function GalleryPageClient() {
             onClick={(e) => e.stopPropagation()}
           >
             <div className="w-full relative rounded-xl shadow-[0_0_80px_rgba(255,136,17,0.15)] ring-1 ring-white/20">
-              <div className="aspect-[16/9] md:aspect-[3/2] w-full bg-gradient-to-br from-temple-dark to-black
+              <div className="relative aspect-[16/9] md:aspect-[3/2] w-full bg-gradient-to-br from-temple-dark to-black
                 flex items-center justify-center overflow-hidden rounded-xl">
-                <div className="text-center animate-pulse">
-                  <span className="text-6xl block mb-4 opacity-50">📸</span>
-                </div>
+                {lightboxItem.url ? (
+                  <Image
+                    src={lightboxItem.url}
+                    alt={getText(lightboxItem.caption)}
+                    fill
+                    className="object-contain"
+                    sizes="100vw"
+                    priority
+                  />
+                ) : (
+                  <div className="text-center animate-pulse">
+                    <span className="text-6xl block mb-4 opacity-50">📸</span>
+                  </div>
+                )}
               </div>
             </div>
             

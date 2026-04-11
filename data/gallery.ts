@@ -17,6 +17,7 @@ export const galleryItems: GalleryItem[] = [
     order: 1,
     category: "temple",
   },
+
   {
     url: "/images/gallery/main-deity.jpg",
     thumbnail: "/images/gallery/main-deity.jpg",

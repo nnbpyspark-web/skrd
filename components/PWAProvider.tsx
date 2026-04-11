@@ -15,17 +15,27 @@ export default function PWAProvider() {
   const [swRegistered, setSwRegistered] = useState(false);
 
   useEffect(() => {
-    // Register Service Worker
+    // Register Service Worker only in production, unregister in development mode to prevent stale caches
     if ("serviceWorker" in navigator) {
-      navigator.serviceWorker
-        .register("/sw.js", { scope: "/" })
-        .then((registration) => {
-          console.log("SW registered:", registration.scope);
-          setSwRegistered(true);
-        })
-        .catch((err) => {
-          console.error("SW registration failed:", err);
+      if (process.env.NODE_ENV === "development") {
+        navigator.serviceWorker.getRegistrations().then((registrations) => {
+          for (let registration of registrations) {
+            registration.unregister().then(() => {
+              console.log("Unregistered stale service worker in dev mode");
+            });
+          }
         });
+      } else {
+        navigator.serviceWorker
+          .register("/sw.js", { scope: "/" })
+          .then((registration) => {
+            console.log("SW registered:", registration.scope);
+            setSwRegistered(true);
+          })
+          .catch((err) => {
+            console.error("SW registration failed:", err);
+          });
+      }
     }
 
     // Check if already installed

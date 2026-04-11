@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import { useLanguage, useBilingualText } from "@/lib/LanguageContext";
 import { Button, SectionHeading, PremiumSectionHeading, Card, Badge } from "@/components/ui/Primitives";
 import { ParticleField } from "@/components/ui/ParticleField";
@@ -172,13 +173,16 @@ export default function HomePage() {
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            {/* Left: Image placeholder */}
+            {/* Left: Temple Image */}
             <div className="relative">
-              <div className="aspect-[4/3] rounded-2xl bg-gradient-to-br from-saffron-500/20 to-gold-500/10 border border-saffron-500/20 flex items-center justify-center overflow-hidden">
-                <div className="text-center p-8">
-                  <span className="text-6xl mb-4 block">🏛️</span>
-                  <p className="text-saffron-400/60 font-heading text-sm">Temple Image</p>
-                </div>
+              <div className="aspect-[4/3] rounded-2xl border border-saffron-500/20 flex items-center justify-center overflow-hidden group relative">
+                <Image
+                  src="/images/gallery/temple-gopuram.jpg"
+                  alt="Sri Kanugonda Raya Swami Temple Front View"
+                  fill
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                />
               </div>
               {/* Decorative frame */}
               <div className="absolute -top-3 -left-3 w-24 h-24 border-t-2 border-l-2 border-saffron-400/30 rounded-tl-2xl" />
@@ -216,15 +220,24 @@ export default function HomePage() {
             {previewImages.map((item, index) => (
               <div
                 key={index}
-                className={`relative group rounded-2xl overflow-hidden bg-gradient-to-br from-saffron-100 to-ivory-200 cursor-pointer ${
-                  index === 0 ? "md:col-span-2 md:row-span-2" : ""
-                }`}
+                className={`relative group rounded-2xl overflow-hidden bg-gradient-to-br from-saffron-100 to-ivory-200 cursor-pointer ${index === 0 ? "md:col-span-2 md:row-span-2" : ""
+                  }`}
               >
-                <div className={`${index === 0 ? "aspect-square" : "aspect-[4/3]"} flex items-center justify-center`}>
-                  <div className="text-center">
-                    <span className="text-4xl block mb-2">📸</span>
-                    <p className="text-saffron-600/60 text-xs font-heading">{getText(item.caption)}</p>
-                  </div>
+                <div className={`${index === 0 ? "aspect-square" : "aspect-[4/3]"} relative flex items-center justify-center bg-temple-dark`}>
+                  {item.thumbnail ? (
+                    <Image
+                      src={item.thumbnail}
+                      alt={getText(item.caption)}
+                      fill
+                      className="object-cover transition-transform duration-700 group-hover:scale-105"
+                      sizes={index === 0 ? "(max-width: 768px) 100vw, 66vw" : "(max-width: 768px) 50vw, 33vw"}
+                    />
+                  ) : (
+                    <div className="text-center">
+                      <span className="text-4xl block mb-2">📸</span>
+                      <p className="text-saffron-600/60 text-xs font-heading">{getText(item.caption)}</p>
+                    </div>
+                  )}
                 </div>
                 {/* Overlay on hover */}
                 <div className="absolute inset-0 bg-gradient-to-t from-temple-dark/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
